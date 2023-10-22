@@ -8,7 +8,7 @@ const Home: React.FC = () => {
   return (
     <div className="flex w-full flex-col items-center justify-center gap-5">
       <div className="flex flex-row gap-3">
-        <a href="https://vitejs.dev" target="_blank">
+        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
           <img
             src={WLogo}
             alt="Vite logo"
@@ -16,7 +16,7 @@ const Home: React.FC = () => {
             title="Aprenda sobre Vite"
           />
         </a>
-        <a href="https://react.dev" target="_blank">
+        <a href="https://react.dev" target="_blank" rel="noreferrer">
           <img
             src={reactLogo}
             alt="React logo"
