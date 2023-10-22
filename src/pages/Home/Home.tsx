@@ -1,6 +1,6 @@
 import reactLogo from "@/assets/svg/react.svg";
 import { useState } from "react";
-import viteLogo from "/svg/vite.svg";
+import WLogo from "/svg/w-logo.svg";
 
 const Home: React.FC = () => {
   const [count, setCount] = useState(0);
@@ -13,7 +13,7 @@ const Home: React.FC = () => {
           target="_blank"
           className="m-5 bg-slate-500"
         >
-          <img src={viteLogo} alt="Vite logo" />
+          <img src={WLogo} alt="Vite logo" />
         </a>
         <a href="https://react.dev" target="_blank">
           <img src={reactLogo} alt="React logo" />
