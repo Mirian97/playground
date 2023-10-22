@@ -6,17 +6,22 @@ const Home: React.FC = () => {
   const [count, setCount] = useState(0);
 
   return (
-    <div className="flex w-full flex-col items-center justify-center">
-      <div className="flex flex-row">
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={WLogo} alt="Vite logo" className="w-10" />
+    <div className="flex w-full flex-col items-center justify-center gap-5">
+      <div className="flex flex-row gap-3">
+        <a href="https://vitejs.dev" target="_blank" title="Aprenda sobre Vite">
+          <img src={WLogo} alt="Vite logo" className="w-16" />
         </a>
         <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} alt="React logo" className="w-10" />
+          <img
+            src={reactLogo}
+            alt="React logo"
+            className="w-16"
+            title="Aprenda sobre React"
+          />
         </a>
       </div>
       <h1>Wivenn Playground</h1>
-      <div className="card">
+      <div>
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
