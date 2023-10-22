@@ -1,5 +1,5 @@
 // export const plugins = ["prettier-plugin-tailwindcss"];
-
+// TODO: I need to synchronize prettier and eslint so that they format together
 export default {
   bracketSpacing: true,
   jsxBracketSameLine: false,
