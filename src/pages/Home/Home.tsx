@@ -8,8 +8,13 @@ const Home: React.FC = () => {
   return (
     <div className="flex w-full flex-col items-center justify-center gap-5">
       <div className="flex flex-row gap-3">
-        <a href="https://vitejs.dev" target="_blank" title="Aprenda sobre Vite">
-          <img src={WLogo} alt="Vite logo" className="w-16" />
+        <a href="https://vitejs.dev" target="_blank">
+          <img
+            src={WLogo}
+            alt="Vite logo"
+            className="w-16"
+            title="Aprenda sobre Vite"
+          />
         </a>
         <a href="https://react.dev" target="_blank">
           <img
