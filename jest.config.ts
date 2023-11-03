@@ -10,6 +10,7 @@ const config: Config = {
     "!**/coverage/**",
     "!<rootDir>/out/**",
     "!<rootDir>/*.{js,ts}",
+    "!**/*.d.ts",
   ],
   moduleNameMapper: {
     // Handle CSS imports (with CSS modules)
