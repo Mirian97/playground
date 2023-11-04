@@ -1,3 +1,4 @@
+//  TODO: find a way to remove the import required of "@testing-library/jest-dom";
 import "@testing-library/jest-dom";
 import { render } from "@testing-library/react";
 import Home from "./Home";
