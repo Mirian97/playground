@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import Home from "./Home";
 
 const renderHome = () => render(<Home />);
@@ -16,5 +16,17 @@ describe("Home", () => {
     expect(ReactLogo).toBeInTheDocument();
     expect(appTitle).toBeInTheDocument();
     expect(counterButton).toBeInTheDocument();
+  });
+
+  it("handle with state count", () => {
+    const { getByRole } = renderHome();
+    const counterButton = getByRole("button");
+
+    fireEvent.click(counterButton);
+    expect(counterButton).toHaveTextContent("count is 1");
+
+    fireEvent.click(counterButton);
+    fireEvent.click(counterButton);
+    expect(counterButton).toHaveTextContent("count is 3");
   });
 });
