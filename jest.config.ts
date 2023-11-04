@@ -1,9 +1,11 @@
 import type { Config } from "jest";
 
 const config: Config = {
-  verbose: true,
   collectCoverage: true,
+  // on node 14.x coverage provider v8 offers good speed and more or less good report
+  coverageProvider: "v8",
   testEnvironment: "jsdom",
+  setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
   collectCoverageFrom: [
     "**/*.{js,jsx,ts,tsx}",
     "!**/node_modules/**",
@@ -20,9 +22,12 @@ const config: Config = {
     // Handle CSS imports (without CSS modules)
     "^.+\\.(css|sass|scss)$": "<rootDir>/__mocks__/styleMock.js",
 
+    // Handle with recognize Jest svg's
+    "^.+\\.svg": "<rootDir>/src/__mocks__/svg.ts",
+
     // Handle image imports
     // https://jestjs.io/docs/webpack#handling-static-assets
-    "^.+\\.(png|jpg|jpeg|gif|webp|avif|ico|bmp|svg)$/i": `<rootDir>/__mocks__/fileMock.js`,
+    "^.+\\.(png|jpg|jpeg|gif|webp|avif|ico|bmp)$/i": `<rootDir>/__mocks__/fileMock.js`,
 
     // Handle module aliases
     "^@/components/(.*)$": "<rootDir>/components/$1",
