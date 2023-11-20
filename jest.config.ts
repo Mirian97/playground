@@ -27,7 +27,7 @@ const config: Config = {
 
     // Handle image imports
     // https://jestjs.io/docs/webpack#handling-static-assets
-    "^.+\\.(png|jpg|jpeg|gif|webp|avif|ico|bmp)$/i": `<rootDir>/__mocks__/fileMock.js`,
+    "^.+\\.(png|jpg|jpeg|gif|webp|avif|ico|bmp)$/i": `<rootDir>/__mocks__/fileMock.ts`,
 
     // Handle module aliases
     "^@/components/(.*)$": "<rootDir>/components/$1",
