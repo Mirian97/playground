@@ -1,11 +1,12 @@
-export type ContactType = {
+export type TContactItem = {
   id: string;
+  createdAt: number;
   first?: string;
   last?: string;
   twitter?: string;
   avatar?: string;
   notes?: string;
-  createdAt: number;
+  favorite?: boolean;
 };
 
-export type ContactsType = Array<ContactType> | null;
+export type TContactList = Array<TContactItem> | null;
