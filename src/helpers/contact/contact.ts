@@ -1,7 +1,7 @@
 import localforage from "localforage";
 import { matchSorter } from "match-sorter";
 import sortBy from "sort-by";
-import { TContactItem, TContactList } from "./ContactTypes";
+import { TContactList, TOmitIdCreatedAtFromContactItem } from "./ContactTypes";
 
 export async function getContacts(query?: string) {
   await fakeNetwork(`getContacts:${query}`);
@@ -37,7 +37,10 @@ export async function getContact(id: string) {
   return contact;
 }
 
-export async function updateContact(id: string, updates: TContactItem) {
+export async function updateContact(
+  id: string,
+  updates: TOmitIdCreatedAtFromContactItem,
+) {
   await fakeNetwork();
   const contacts: TContactList = await localforage.getItem("contacts");
   if (contacts === null) return null;
