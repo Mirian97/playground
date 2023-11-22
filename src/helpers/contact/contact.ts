@@ -1,11 +1,11 @@
 import localforage from "localforage";
 import { matchSorter } from "match-sorter";
 import sortBy from "sort-by";
-import { ContactType, ContactsType } from "./ContactTypes";
+import { TContactItem, TContactList } from "./ContactTypes";
 
 export async function getContacts(query?: string) {
   await fakeNetwork(`getContacts:${query}`);
-  let contacts: ContactsType = await localforage.getItem("contacts");
+  let contacts: TContactList = await localforage.getItem("contacts");
   if (contacts === null) {
     contacts = [];
   }
@@ -27,7 +27,7 @@ export async function createContact() {
 
 export async function getContact(id: string) {
   await fakeNetwork(`contact:${id}`);
-  let contacts: ContactsType = [];
+  let contacts: TContactList = [];
   contacts = await localforage.getItem("contacts");
   if (contacts === undefined || contacts === null) {
     contacts = [];
@@ -37,9 +37,9 @@ export async function getContact(id: string) {
   return contact;
 }
 
-export async function updateContact(id: string, updates: ContactType) {
+export async function updateContact(id: string, updates: TContactItem) {
   await fakeNetwork();
-  const contacts: ContactsType = await localforage.getItem("contacts");
+  const contacts: TContactList = await localforage.getItem("contacts");
   if (contacts === null) return null;
   const contact = contacts.find((contact) => contact.id === id);
   if (!contact) throw new Error(`No contact found for ${id}`);
@@ -49,7 +49,7 @@ export async function updateContact(id: string, updates: ContactType) {
 }
 
 export async function deleteContact(id: string) {
-  const contacts: ContactsType = await localforage.getItem("contacts");
+  const contacts: TContactList = await localforage.getItem("contacts");
   if (contacts === null) return null;
   const index = contacts.findIndex((contact) => contact.id === id);
   if (index > -1) {
@@ -60,7 +60,7 @@ export async function deleteContact(id: string) {
   return false;
 }
 
-function set(contacts: ContactsType) {
+function set(contacts: TContactList) {
   return localforage.setItem("contacts", contacts);
 }
 
