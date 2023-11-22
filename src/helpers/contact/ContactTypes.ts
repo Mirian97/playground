@@ -10,3 +10,8 @@ export type TContactItem = {
 };
 
 export type TContactList = Array<TContactItem> | null;
+
+export type TOmitIdCreatedAtFromContactItem = Omit<
+  TContactItem,
+  "id" | "createdAt"
+>;
