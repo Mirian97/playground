@@ -1,4 +1,5 @@
 import { createContact, getContacts } from "@/helpers/contact/contact";
+import { redirect } from "react-router-dom";
 
 export const rootLoader = async () => {
   const contacts = await getContacts();
@@ -6,6 +7,6 @@ export const rootLoader = async () => {
 };
 
 export const rootAction = async () => {
-  const contacts = await createContact();
-  return { contacts };
+  const contact = await createContact();
+  return redirect(`/contacts/${contact.id}/edit`);
 };
