@@ -1,13 +1,14 @@
 import localforage from "localforage";
 import { matchSorter } from "match-sorter";
 import sortBy from "sort-by";
-
-type ContactsType = Array<object> | null;
+import { ContactType, ContactsType } from "./ContactTypes";
 
 export async function getContacts(query?: string) {
   await fakeNetwork(`getContacts:${query}`);
   let contacts: ContactsType = await localforage.getItem("contacts");
-  if (!contacts) contacts = [];
+  if (contacts === null) {
+    contacts = [];
+  }
   if (query) {
     contacts = matchSorter(contacts, query, { keys: ["first", "last"] });
   }
@@ -26,13 +27,17 @@ export async function createContact() {
 
 export async function getContact(id: string) {
   await fakeNetwork(`contact:${id}`);
-  const contacts: ContactsType = await localforage.getItem("contacts");
-  if (contacts === null) return null;
+  let contacts: ContactsType = [];
+  contacts = await localforage.getItem("contacts");
+  if (contacts === undefined || contacts === null) {
+    contacts = [];
+    await localforage.setItem("contacts", contacts);
+  }
   const contact = contacts.find((contact) => contact.id === id);
   return contact;
 }
 
-export async function updateContact(id: string, updates) {
+export async function updateContact(id: string, updates: ContactType) {
   await fakeNetwork();
   const contacts: ContactsType = await localforage.getItem("contacts");
   if (contacts === null) return null;
@@ -59,18 +64,15 @@ function set(contacts: ContactsType) {
   return localforage.setItem("contacts", contacts);
 }
 
-// fake a cache so we don't slow down stuff we've already seen
 let fakeCache: Record<string, boolean> = {};
 
 async function fakeNetwork(key?: string) {
   if (key === undefined) {
     fakeCache = {};
   }
-
   if (key !== undefined && fakeCache[key]) {
     return;
   }
-
   fakeCache[key as string] = true;
   return new Promise((res) => {
     setTimeout(res, Math.random() * 800);
