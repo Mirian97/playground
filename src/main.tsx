@@ -6,7 +6,7 @@ import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./index.css";
 import { contactLoader } from "./routes/Contact/loader";
-import { deleteContactAction } from "./routes/DeleteContact/laoder";
+import { deleteContactAction } from "./routes/DeleteContact/loader";
 import EditContact from "./routes/EditContact/EditContact";
 import { editContactAction } from "./routes/EditContact/loader";
 import Index from "./routes/Root/Index/Index";
