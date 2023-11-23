@@ -6,8 +6,10 @@ import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./index.css";
 import { contactLoader } from "./routes/Contact/loader";
+import { deleteContactAction } from "./routes/DeleteContact/laoder";
 import EditContact from "./routes/EditContact/EditContact";
 import { editContactAction } from "./routes/EditContact/loader";
+import Index from "./routes/Root/Index/Index";
 import { rootAction, rootLoader } from "./routes/Root/loader";
 
 const router = createBrowserRouter([
@@ -18,6 +20,7 @@ const router = createBrowserRouter([
     loader: rootLoader,
     action: rootAction,
     children: [
+      { index: true, element: <Index /> },
       {
         path: "contacts/:contactId",
         element: <Contact />,
@@ -28,6 +31,12 @@ const router = createBrowserRouter([
         element: <EditContact />,
         loader: contactLoader,
         action: editContactAction,
+      },
+      {
+        path: "contacts/:contactId/destroy",
+        errorElement: <p>Oops! There was an error!</p>,
+        loader: contactLoader,
+        action: deleteContactAction,
       },
     ],
   },
