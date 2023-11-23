@@ -1,8 +1,10 @@
 import TLoaderData from "@/@types/useLoaderData";
+import useBackPreviousPage from "@/hooks/useBackPreviousPage/useBackPreviousPage";
 import { Form, useLoaderData } from "react-router-dom";
 import { contactLoader } from "../Contact/loader";
 
 const EditContact = () => {
+  const { backToPreviousPage } = useBackPreviousPage();
   const data = useLoaderData() as TLoaderData<typeof contactLoader>;
   if (data?.contact === undefined) return null;
   const { avatar, last, first, twitter, notes } = data.contact;
@@ -51,7 +53,9 @@ const EditContact = () => {
       </label>
       <p>
         <button type="submit">Save</button>
-        <button type="button">Cancel</button>
+        <button type="button" onClick={backToPreviousPage}>
+          Cancel
+        </button>
       </p>
     </Form>
   );
