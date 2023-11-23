@@ -12,9 +12,9 @@ import { rootLoader } from "./loader";
 
 const Root = () => {
   const { contacts, q } = useLoaderData() as TLoaderData<typeof rootLoader>;
-  const { state } = useNavigation();
-  //state could be 'idle' | 'loading' | 'submitting'
+  const { state, location } = useNavigation(); //state could be 'idle' | 'loading' | 'submitting'
   const submit = useSubmit();
+  const searching = location && new URLSearchParams(location.search).has("q"); //location is true when is loading some data
 
   useEffect(() => {
     const inputElement = document.getElementById("q") as HTMLInputElement;
@@ -35,8 +35,9 @@ const Root = () => {
               name="q"
               defaultValue={q || ""}
               onChange={(event) => submit(event.currentTarget.form)}
+              className={searching ? "loading" : ""}
             />
-            <div id="search-spinner" aria-hidden hidden={true} />
+            <div id="search-spinner" aria-hidden hidden={!searching} />
             <div className="sr-only" aria-live="polite" />
           </Form>
           <Form method="post">
