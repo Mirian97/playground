@@ -1,18 +1,11 @@
+import { IContactLoaderArgs } from "@/@types/ContactLoaderArgs";
 import { updateContact } from "@/helpers/contact/contact";
-import { LoaderFunctionArgs, redirect } from "react-router-dom";
-
-interface IEditContactAction extends LoaderFunctionArgs {
-  params: {
-    contactId?: string;
-  };
-  request: Request; //type Request from fetch API
-}
-//TODO: insert validations before submit values
+import { redirect } from "react-router-dom";
 
 export const editContactAction = async ({
   request,
   params,
-}: IEditContactAction) => {
+}: IContactLoaderArgs) => {
   const formData = await request.formData();
   const updates = Object.fromEntries(formData);
   if (!params.contactId) return;
