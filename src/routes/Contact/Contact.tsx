@@ -1,6 +1,6 @@
 import TLoaderData from "@/@types/useLoaderData";
 import { TContactItem } from "@/helpers/contact/ContactTypes";
-import { Form, useLoaderData } from "react-router-dom";
+import { Form, useFetcher, useLoaderData } from "react-router-dom";
 import { contactLoader } from "./loader";
 
 const Contact = () => {
@@ -56,9 +56,15 @@ const Contact = () => {
 };
 
 const Favorite = ({ contact }: { contact: TContactItem }) => {
-  const favorite = contact.favorite;
+  let favorite = contact.favorite;
+  const fetcher = useFetcher();
+
+  if (fetcher.formData) {
+    favorite = fetcher.formData.get("favorite") === "true";
+  }
+
   return (
-    <Form method="post">
+    <fetcher.Form method="post">
       <button
         name="favorite"
         value={favorite ? "false" : "true"}
@@ -66,7 +72,7 @@ const Favorite = ({ contact }: { contact: TContactItem }) => {
       >
         {favorite ? "★" : "☆"}
       </button>
-    </Form>
+    </fetcher.Form>
   );
 };
 
