@@ -5,6 +5,11 @@ const meta: Meta<typeof Alert> = {
   title: "Alert",
   component: Alert,
   tags: ["autodocs"],
+  parameters: {
+    backgrounds: {
+      default: "light",
+    },
+  },
   argTypes: {
     variant: {
       options: ["default", "destructive"],
