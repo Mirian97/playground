@@ -1,6 +1,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React, { FC, useCallback, useEffect, useRef, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 import {
   Table as CustomTable,
   TableBody,
@@ -22,6 +23,7 @@ const fetchItems = async ({ pageParam = 1, filter }) => {
 
 const Table: FC = () => {
   const [filter, setFilter] = useState("");
+  const { ref, inView } = useInView();
   const { data, fetchNextPage, hasNextPage, isLoading, refetch } =
     useInfiniteQuery({
       queryKey: ["Items"],
@@ -34,20 +36,26 @@ const Table: FC = () => {
       },
     });
 
-  const observer = useRef<IntersectionObserver>();
-  const lastItemElementRef = useCallback(
-    (node: HTMLTableRowElement) => {
-      if (isLoading) return;
-      if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasNextPage) {
-          fetchNextPage();
-        }
-      });
-      if (node) observer.current.observe(node);
-    },
-    [isLoading, hasNextPage],
-  );
+  useEffect(() => {
+    if (inView) {
+      fetchNextPage();
+    }
+  }, [fetchNextPage, inView]);
+
+  // const observer = useRef<IntersectionObserver>();
+  // const lastItemElementRef = useCallback(
+  //   (node: HTMLTableRowElement) => {
+  //     if (isLoading) return;
+  //     if (observer.current) observer.current.disconnect();
+  //     observer.current = new IntersectionObserver((entries) => {
+  //       if (entries[0].isIntersecting && hasNextPage) {
+  //         fetchNextPage();
+  //       }
+  //     });
+  //     if (node) observer.current.observe(node);
+  //   },
+  //   [isLoading, hasNextPage],
+  // );
 
   useEffect(() => {
     refetch();
@@ -64,7 +72,7 @@ const Table: FC = () => {
             <React.Fragment key={i}>
               {pageData.results.map((item: Item, index: number) =>
                 pageData.results.length === index + 1 ? (
-                  <TableRow ref={lastItemElementRef} key={item.url}>
+                  <TableRow ref={ref} key={item.url}>
                     <TableCell>{item.name}</TableCell>
                   </TableRow>
                 ) : (
