@@ -37,7 +37,7 @@ const Table: FC = () => {
     });
 
   useEffect(() => {
-    if (inView) {
+    if (inView && hasNextPage) {
       fetchNextPage();
     }
   }, [fetchNextPage, inView]);
