@@ -11,6 +11,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Checkbox from "./components/Checkbox/Checkbox";
 import Table from "./components/Table/Table";
 import "./index.css";
 
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
         element: <Table />,
       },
     ],
+  },
+  {
+    path: "/checkbox",
+    element: <Checkbox />,
   },
 ]);
 
