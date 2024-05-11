@@ -13,6 +13,7 @@ import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Table from "./components/Table/Table";
 import "./index.css";
+import ViewEmbedPDF from "./pages/ViewEmbedPDF";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: "infiniteTable",
         element: <Table />,
+      },
+      {
+        path: "AdobeEmbedPdf",
+        element: <ViewEmbedPDF />,
       },
     ],
   },
