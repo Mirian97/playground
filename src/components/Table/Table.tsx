@@ -1,6 +1,6 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import {
   Table as CustomTable,
@@ -14,7 +14,7 @@ interface Item {
   id: string;
 }
 
-const fetchItems = async ({ pageParam = 1, filter }) => {
+const fetchItems = async ({ pageParam = 1 }) => {
   const res = await axios.get(
     `https://swapi.dev/api/planets/?page=${pageParam}`,
   );
@@ -22,19 +22,17 @@ const fetchItems = async ({ pageParam = 1, filter }) => {
 };
 
 const Table: FC = () => {
-  const [filter, setFilter] = useState("");
   const { ref, inView } = useInView();
-  const { data, fetchNextPage, hasNextPage, isLoading, refetch } =
-    useInfiniteQuery({
-      queryKey: ["Items"],
-      queryFn: ({ pageParam }) => fetchItems({ pageParam, filter }),
-      initialPageParam: 1,
-      getNextPageParam: (lastPage) => {
-        if (lastPage.next == null) return undefined;
-        const LAST_PAGE = lastPage.next.split("page=")[1];
-        return LAST_PAGE;
-      },
-    });
+  const { data, fetchNextPage, hasNextPage, isLoading } = useInfiniteQuery({
+    queryKey: ["Items"],
+    queryFn: ({ pageParam }) => fetchItems({ pageParam }),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      if (lastPage.next == null) return undefined;
+      const LAST_PAGE = lastPage.next.split("page=")[1];
+      return LAST_PAGE;
+    },
+  });
 
   useEffect(() => {
     if (inView && hasNextPage) {
@@ -56,10 +54,6 @@ const Table: FC = () => {
   //   },
   //   [isLoading, hasNextPage],
   // );
-
-  useEffect(() => {
-    refetch();
-  }, [filter, refetch]);
 
   if (isLoading) return <p>A página está carregando...</p>;
 
