@@ -7,15 +7,9 @@ const useInView = (options: IntersectionObserverInit) => {
   useEffect(() => {
     const currentElementRef = elementRef.current;
     const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0]) {
-          const IS_INTERSECT = entries[0].isIntersecting;
-          setInView(IS_INTERSECT);
-        }
-      },
+      ([entry]) => setInView(entry.isIntersecting),
       { ...options },
     );
-
     if (currentElementRef) observer.observe(currentElementRef);
 
     return () => {
